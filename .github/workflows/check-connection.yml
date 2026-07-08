@@ -1,0 +1,23 @@
+name: Check Framer connection
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - name: Check Framer connection and print Journal fields
+        env:
+          FRAMER_API_KEY: ${{ secrets.FRAMER_API_KEY }}
+          FRAMER_PROJECT_URL: ${{ secrets.FRAMER_PROJECT_URL }}
+          FRAMER_COLLECTION_NAME: Journal
+        run: node scripts/check-connection.mjs
