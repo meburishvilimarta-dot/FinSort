@@ -103,6 +103,22 @@ a hard sell.
   never live), polling for up to 20s to confirm the item actually
   persisted before moving the file to `fina2/drafts/published/`.
 
+## The "Blogs" collection is shared with events
+
+Confirmed via `check-connection.mjs`: the collection named `Blogs` on the
+fina2.net Framer project holds **both** blog posts and event listings
+(e.g. "Summit 2024", "Summit 2025", a business-forum item), distinguished
+by a `Type` enum field with plain string values `"Blog"` or `"Event"`.
+`publish-post.mjs` always sets `Type: "Blog"` on items it creates — never
+touch or overwrite existing items, and never change that value.
+
+The real field names (not the generic ones the frontmatter/matchField
+aliases assume) are: `Blog Title`, `Blog Content` (formattedText/HTML),
+`Blog Image`, `Publication Date`. **There is no excerpt/summary field in
+this collection** — `excerpt` is still written into each draft's
+frontmatter for editorial purposes, but it currently has nowhere to go on
+publish (silently skipped, not an error). There's also no `topic` field.
+
 ## Framer connection — GitHub Actions only
 
 `framer-api` opens a WebSocket to `wss://api.framer.com`, which does not

@@ -56,12 +56,16 @@ async function main() {
     const collection = resolveCollection(collections, process.env.FINA2_FRAMER_COLLECTION_NAME);
     const fields = await collection.getFields();
 
-    const titleField = matchField(fields, ["title", "name"]);
+    // The "Blogs" collection is shared with event listings (Summit 2024/2025,
+    // etc.), so its real field names are prefixed accordingly rather than
+    // generic "title"/"content"/"date" - confirmed via check-connection.mjs.
+    const titleField = matchField(fields, ["blog title", "title", "name"]);
     const excerptField = matchField(fields, ["excerpt", "summary", "description"]);
-    const contentField = matchField(fields, ["content", "body", "post content", "post"]);
-    const dateField = matchField(fields, ["date", "published date", "publish date"]);
+    const contentField = matchField(fields, ["blog content", "content", "body", "post content", "post"]);
+    const dateField = matchField(fields, ["publication date", "date", "published date", "publish date"]);
     const topicField = matchField(fields, ["topic"]);
-    const imageField = matchField(fields, ["image", "illustration", "photo", "picture", "cover image"]);
+    const imageField = matchField(fields, ["blog image", "image", "illustration", "photo", "picture", "cover image"]);
+    const typeField = matchField(fields, ["type"]);
 
     const fieldData = {};
     if (titleField) fieldData[titleField.id] = { type: titleField.type, value: data.title };
@@ -76,6 +80,9 @@ async function main() {
     if (imageField && data.image) {
       fieldData[imageField.id] = { type: "image", value: data.image, alt: data.title };
     }
+    // Existing "Blogs" items distinguish posts from events via this enum -
+    // every item observed with a real blog post's shape has Type: "Blog".
+    if (typeField) fieldData[typeField.id] = { type: "enum", value: "Blog" };
 
     await collection.addItems([{ slug: data.slug, draft: true, fieldData }]);
 
