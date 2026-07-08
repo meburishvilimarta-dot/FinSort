@@ -60,6 +60,7 @@ async function main() {
     const contentField = matchField(fields, ["content", "body", "post content", "post"]);
     const dateField = matchField(fields, ["date", "published date", "publish date"]);
     const topicField = matchField(fields, ["topic"]);
+    const imageField = matchField(fields, ["image", "illustration", "photo", "picture", "cover image"]);
 
     const fieldData = {};
     if (titleField) fieldData[titleField.id] = { type: titleField.type, value: data.title };
@@ -71,6 +72,9 @@ async function main() {
     }
     if (dateField && data.date) fieldData[dateField.id] = { type: dateField.type, value: data.date };
     if (topicField && data.topic) fieldData[topicField.id] = { type: topicField.type, value: data.topic };
+    if (imageField && data.image) {
+      fieldData[imageField.id] = { type: "image", value: data.image, alt: data.title };
+    }
 
     await collection.addItems([{ slug: data.slug, draft: true, fieldData }]);
 
