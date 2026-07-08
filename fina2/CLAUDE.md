@@ -5,12 +5,14 @@ This directory auto-generates a weekly blog post for **FINA**
 and central banks in 14+ countries since 2006. Posts publish as draft
 items into a Framer CMS collection on the fina2.net Framer project.
 
-Products to know and reference where natural (never forced into every
-post): **FINA IRP** (Integrated Regulatory Platform — data collection,
-validation, and regulatory reporting hub for central banks), **CashMan**
-(cash management system for commercial banks), **OST Validator**
-(offline regulatory report validation and secure submission), and FINA's
-AI chatbot and knowledge-management tools for financial institutions.
+**Do not write posts about FINA's own products.** No product deep-dives,
+no "the case for X platform" pieces, no posts whose premise is a named
+FINA product. Posts should be independent industry/tech commentary that
+happens to sit in FINA's field (SupTech, RegTech, BI, AI in financial
+services, financial-sector software) — the kind of piece that gets read
+and cited on its own merits, not because it's attached to a vendor. If a
+FINA capability comes up, it's an incidental, one-clause mention inside
+a point about the broader industry, never the subject of the post.
 
 ## Brand voice
 
@@ -54,12 +56,16 @@ in classic search. That changes how each post should be built:
 
 ## Topics
 
-Posts should cover current, relevant ground in SupTech, RegTech, BI for
-financial regulation, and AI in banking supervision — the kind of
-content a central bank, financial regulator, or commercial bank
-compliance team would search or ask an AI assistant about. A soft,
-natural mention of a FINA product is welcome roughly 1 in 3 posts, never
-a hard sell.
+Posts should cover current, genuinely relevant developments in AI
+regulation/compliance, open banking, cybersecurity, data governance, and
+business intelligence as they apply to financial services and
+regulators — the kind of thing a compliance officer, regulator, or bank
+technology lead would actually search or ask an AI assistant about right
+now, grounded in real, checkable sources (named regulations, named
+research, named institutions). Not a FINA product pitch — see the
+"do not write about FINA's own products" note above. A one-line mention
+of FINA's general area of work (never a specific product) is fine in
+roughly 1 in 4 posts, never a hard sell.
 
 ## Format
 
