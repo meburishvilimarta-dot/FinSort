@@ -1,0 +1,12 @@
+{
+  "name": "maison-metekhi-journal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check-connection": "node scripts/check-connection.mjs",
+    "publish-post": "node scripts/publish-post.mjs"
+  },
+  "dependencies": {
+    "framer-api": "^0.1.18"
+  }
+}
