@@ -10,3 +10,4 @@ What 72-hour breach disclosure rules actually require, and why most institutions
 Why deepfake-resistant authentication is becoming a banking security baseline, not a nice-to-have
 Digital transformation roadmaps for central banks: common first steps that actually work
 Why regulatory reporting deadlines are getting shorter, and what that means for data pipelines
+Where RegTech investment is actually going in 2026
