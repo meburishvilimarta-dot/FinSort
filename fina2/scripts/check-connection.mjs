@@ -27,10 +27,21 @@ async function main() {
     console.log("Fields:");
     for (const f of fields) {
       console.log(`  - ${f.name}  [${f.type}]`);
+      if (f.type === "enum") {
+        // Don't guess the SDK's property name for the option list (cases,
+        // options, choices, ...) - dump the raw field so it's visible either way.
+        console.log(`      raw: ${JSON.stringify(f)}`);
+      }
     }
+
+    const typeField = fields.find((f) => f.name.trim().toLowerCase() === "type");
     console.log("Items:");
     for (const item of items) {
-      console.log(`  - slug: ${item.slug}  draft: ${item.draft}  id: ${item.id}`);
+      const typeValue = typeField ? item.fieldData?.[typeField.id] : undefined;
+      console.log(
+        `  - slug: ${item.slug}  draft: ${item.draft}  id: ${item.id}` +
+          (typeField ? `  type: ${JSON.stringify(typeValue)}` : "")
+      );
     }
   } finally {
     await framer.disconnect();
