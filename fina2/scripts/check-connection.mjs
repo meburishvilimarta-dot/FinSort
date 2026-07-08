@@ -28,9 +28,11 @@ async function main() {
     for (const f of fields) {
       console.log(`  - ${f.name}  [${f.type}]`);
       if (f.type === "enum") {
-        // Don't guess the SDK's property name for the option list (cases,
-        // options, choices, ...) - dump the raw field so it's visible either way.
-        console.log(`      raw: ${JSON.stringify(f)}`);
+        // `cases` is a getter on the SDK's EnumField class, so it's invisible
+        // to JSON.stringify(f) - must access it directly to see real case ids.
+        for (const c of f.cases ?? []) {
+          console.log(`      case: id=${c.id}  name=${c.name}`);
+        }
       }
     }
 
