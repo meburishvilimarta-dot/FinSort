@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "check-connection": "node scripts/check-connection.mjs",
-    "publish-post": "node scripts/publish-post.mjs"
+    "publish-post": "node scripts/publish-post.mjs",
+    "fina2:check-connection": "node fina2/scripts/check-connection.mjs",
+    "fina2:publish-post": "node fina2/scripts/publish-post.mjs"
   },
   "dependencies": {
     "framer-api": "^0.1.18"
