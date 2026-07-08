@@ -78,6 +78,27 @@ async function main() {
 
     await collection.addItems([{ slug: data.slug, draft: true, fieldData }]);
 
+    // addItems() only acknowledges the write over the plugin connection; Framer
+    // ingests any external image URL asynchronously afterward, so confirm the
+    // item actually persisted before disconnecting or moving the draft file.
+    const deadline = Date.now() + 20_000;
+    let persisted = false;
+    while (Date.now() < deadline) {
+      const items = await collection.getItems();
+      if (items.some((item) => item.slug === data.slug)) {
+        persisted = true;
+        break;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2_000));
+    }
+
+    if (!persisted) {
+      throw new Error(
+        `addItems() did not throw, but slug "${data.slug}" never appeared in the collection after 20s. ` +
+          "Not moving the draft to drafts/published so it can be retried."
+      );
+    }
+
     console.log(`Published "${data.title}" to the Journal collection as a DRAFT item (slug: ${data.slug}).`);
   } finally {
     await framer.disconnect();
