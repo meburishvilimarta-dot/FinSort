@@ -13,6 +13,10 @@ async function main() {
     for (const f of fields) {
       console.log(`  - ${f.name}  [${f.type}]`);
     }
+    console.log("Items:");
+    for (const item of items) {
+      console.log(`  - slug: ${item.slug}  draft: ${item.draft}  id: ${item.id}`);
+    }
   } finally {
     await framer.disconnect();
   }
