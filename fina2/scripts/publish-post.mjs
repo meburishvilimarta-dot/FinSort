@@ -80,9 +80,20 @@ async function main() {
     if (imageField && data.image) {
       fieldData[imageField.id] = { type: "image", value: data.image, alt: data.title };
     }
-    // Existing "Blogs" items distinguish posts from events via this enum -
-    // every item observed with a real blog post's shape has Type: "Blog".
-    if (typeField) fieldData[typeField.id] = { type: "enum", value: "Blog" };
+    // Existing "Blogs" items distinguish posts from events via this enum.
+    // addItems() rejects a display name here ("Expected a valid enum case,
+    // got: [object Object]") - it needs the case's real id, which is only
+    // visible via the EnumField.cases getter, not the display value seen
+    // when reading existing items' fieldData.
+    if (typeField) {
+      const blogCase = typeField.cases?.find((c) => c.name.trim().toLowerCase() === "blog");
+      if (!blogCase) {
+        throw new Error(
+          `Type field has no "Blog" case. Available: ${(typeField.cases ?? []).map((c) => c.name).join(", ")}`
+        );
+      }
+      fieldData[typeField.id] = { type: "enum", value: blogCase.id };
+    }
 
     await collection.addItems([{ slug: data.slug, draft: true, fieldData }]);
 
