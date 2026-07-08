@@ -16,8 +16,13 @@ jobs:
       - run: npm ci
 
       - name: Check Framer connection and print collection fields/items
+        # NOTE: reuses the shared FRAMER_API_KEY / FRAMER_PROJECT_URL repo
+        # secrets (same ones the root Maison Metekhi pipeline reads), by
+        # explicit choice — only one Framer project's credentials can be
+        # live in these secrets at a time, so running this disables that
+        # pipeline until the secrets are pointed back at its project.
         env:
-          FINA2_FRAMER_API_KEY: ${{ secrets.FINA2_FRAMER_API_KEY }}
-          FINA2_FRAMER_PROJECT_URL: ${{ secrets.FINA2_FRAMER_PROJECT_URL }}
+          FINA2_FRAMER_API_KEY: ${{ secrets.FRAMER_API_KEY }}
+          FINA2_FRAMER_PROJECT_URL: ${{ secrets.FRAMER_PROJECT_URL }}
           FINA2_FRAMER_COLLECTION_NAME: ${{ secrets.FINA2_FRAMER_COLLECTION_NAME }}
         run: npm run fina2:check-connection
