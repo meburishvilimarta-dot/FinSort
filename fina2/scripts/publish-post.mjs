@@ -56,6 +56,16 @@ async function main() {
     const collection = resolveCollection(collections, process.env.FINA2_FRAMER_COLLECTION_NAME);
     const fields = await collection.getFields();
 
+    // Framer CMS items have no version history - an accidental overwrite of an
+    // existing slug is unrecoverable, so refuse rather than silently colliding.
+    const existingItems = await collection.getItems();
+    if (existingItems.some((item) => item.slug === data.slug)) {
+      throw new Error(
+        `An item with slug "${data.slug}" already exists in "${collection.name}". Refusing to ` +
+          "risk an overwrite - rename the draft's slug and retry."
+      );
+    }
+
     // The "Blogs" collection is shared with event listings (Summit 2024/2025,
     // etc.), so its real field names are prefixed accordingly rather than
     // generic "title"/"content"/"date" - confirmed via check-connection.mjs.
