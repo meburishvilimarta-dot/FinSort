@@ -31,7 +31,7 @@ jobs:
         env:
           FINA2_FRAMER_API_KEY: ${{ secrets.FRAMER_API_KEY }}
           FINA2_FRAMER_PROJECT_URL: ${{ secrets.FRAMER_PROJECT_URL }}
-          FINA2_FRAMER_COLLECTION_NAME: ${{ secrets.FINA2_FRAMER_COLLECTION_NAME }}
+          FINA2_FRAMER_COLLECTION_NAME: Blogs
         run: npm run fina2:publish-post
 
       - name: Commit draft state
