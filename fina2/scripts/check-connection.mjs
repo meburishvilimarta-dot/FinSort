@@ -37,6 +37,11 @@ async function main() {
     }
 
     const typeField = fields.find((f) => f.name.trim().toLowerCase() === "type");
+    const titleField = fields.find((f) => f.name.trim().toLowerCase() === "blog title");
+    const contentField = fields.find((f) => f.name.trim().toLowerCase() === "blog content");
+    const eventNameField = fields.find((f) => f.name.trim().toLowerCase() === "event name");
+    const eventDescField = fields.find((f) => f.name.trim().toLowerCase() === "event description");
+
     console.log("Items:");
     for (const item of items) {
       const typeValue = typeField ? item.fieldData?.[typeField.id] : undefined;
@@ -44,6 +49,17 @@ async function main() {
         `  - slug: ${item.slug}  draft: ${item.draft}  id: ${item.id}` +
           (typeField ? `  type: ${JSON.stringify(typeValue)}` : "")
       );
+      const title = titleField ? item.fieldData?.[titleField.id]?.value : undefined;
+      const eventName = eventNameField ? item.fieldData?.[eventNameField.id]?.value : undefined;
+      if (title) console.log(`      title: ${title}`);
+      if (eventName) console.log(`      event name: ${eventName}`);
+      const eventDesc = eventDescField ? item.fieldData?.[eventDescField.id]?.value : undefined;
+      if (eventDesc) console.log(`      event description: ${eventDesc.slice(0, 300)}`);
+      const content = contentField ? item.fieldData?.[contentField.id]?.value : undefined;
+      if (content) {
+        const plain = content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+        console.log(`      content excerpt: ${plain.slice(0, 500)}${plain.length > 500 ? "..." : ""}`);
+      }
     }
   } finally {
     await framer.disconnect();
