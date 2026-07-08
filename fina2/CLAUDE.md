@@ -85,8 +85,15 @@ a hard sell.
 - `fina2/drafts/published` — drafts already pushed to Framer, moved here
   so they're never re-published.
 - `fina2/scripts/framer-client.mjs` — shared Framer Server API
-  connection helper for the fina2.net project. Uses `FINA2_FRAMER_*` env
-  vars, kept independent of the root Maison Metekhi pipeline's vars.
+  connection helper for the fina2.net project. Reads env vars named
+  `FINA2_FRAMER_*`, but the GitHub Actions workflows currently populate
+  `FINA2_FRAMER_API_KEY` / `FINA2_FRAMER_PROJECT_URL` from the **shared**
+  `FRAMER_API_KEY` / `FRAMER_PROJECT_URL` repo secrets — the same ones
+  the root Maison Metekhi pipeline uses (a deliberate, explicit choice to
+  avoid adding new secrets; see the workflow files). This means only one
+  Framer project's credentials can be live in those secrets at a time —
+  running the fina2 pipeline currently leaves the Maison Metekhi pipeline
+  pointed at the wrong project until the secrets are swapped back.
 - `fina2/scripts/check-connection.mjs` — verifies the Framer connection,
   lists the project's collections, and (once
   `FINA2_FRAMER_COLLECTION_NAME` is set) prints that collection's real
