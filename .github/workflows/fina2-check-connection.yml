@@ -1,0 +1,23 @@
+name: Check fina2 Framer connection
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - name: Check Framer connection and print collection fields/items
+        env:
+          FINA2_FRAMER_API_KEY: ${{ secrets.FINA2_FRAMER_API_KEY }}
+          FINA2_FRAMER_PROJECT_URL: ${{ secrets.FINA2_FRAMER_PROJECT_URL }}
+          FINA2_FRAMER_COLLECTION_NAME: ${{ secrets.FINA2_FRAMER_COLLECTION_NAME }}
+        run: npm run fina2:check-connection

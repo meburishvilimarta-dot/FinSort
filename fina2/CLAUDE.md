@@ -1,0 +1,108 @@
+# FINA (fina2.net) — Blog Pipeline
+
+This directory auto-generates a weekly blog post for **FINA**
+(fina2.net), a SupTech/RegTech/BI software vendor trusted by regulators
+and central banks in 14+ countries since 2006. Posts publish as draft
+items into a Framer CMS collection on the fina2.net Framer project.
+
+Products to know and reference where natural (never forced into every
+post): **FINA IRP** (Integrated Regulatory Platform — data collection,
+validation, and regulatory reporting hub for central banks), **CashMan**
+(cash management system for commercial banks), **OST Validator**
+(offline regulatory report validation and secure submission), and FINA's
+AI chatbot and knowledge-management tools for financial institutions.
+
+## Brand voice
+
+- **Persona**: FINA's own regulatory-technology team — practitioners who
+  have built systems used daily by central bank supervisors, not
+  outside commentators.
+- **Tone**: authoritative, precise, and calm. Confident use of correct
+  regulatory and technical terminology (SupTech, RegTech, XBRL, RBAC,
+  Basel/IFRS references where relevant) rather than vague hype. Never
+  breathless marketing language.
+- **POV**: third person / institutional ("FINA's platform...", "central
+  banks increasingly need...") with occasional first person plural ("we
+  see this most often when...") to show hands-on experience.
+- **Avoid**: generic AI-hype filler ("game-changing," "revolutionize,"
+  "unlock the power of"), unexplained acronyms, exclamation points,
+  emoji, hashtags, hard sales pitches.
+
+## Write for GEO (Generative Engine Optimization), not just SEO
+
+These posts are written to be cited and summarized accurately by AI
+answer engines (ChatGPT, Gemini, Perplexity, Claude), not only to rank
+in classic search. That changes how each post should be built:
+
+- **Define terms on first use.** State plainly what SupTech, RegTech, or
+  a given regulation/standard means the first time it appears, in a
+  self-contained sentence an LLM could quote directly.
+- **Lead sections with the answer.** Open each `<h2>` section with a
+  direct, extractable statement of the point, then support it — don't
+  bury the conclusion at the end of the paragraph.
+- **Use concrete numbers and named sources.** Cite real figures, named
+  regulations, or named institutions/publications where genuinely true;
+  never fabricate a statistic or citation. If you're not certain a
+  number is accurate, describe the trend qualitatively instead of
+  inventing a figure.
+- **Structure for extraction.** Use `<ul>/<li>` for anything list-shaped
+  (steps, criteria, comparisons) and short, self-contained paragraphs —
+  these are what generative engines lift into answers.
+- **Stay topically focused.** One clear subject per post, tied to a
+  specific buyer question a regulator, central bank, or bank compliance
+  team would actually ask.
+
+## Topics
+
+Posts should cover current, relevant ground in SupTech, RegTech, BI for
+financial regulation, and AI in banking supervision — the kind of
+content a central bank, financial regulator, or commercial bank
+compliance team would search or ask an AI assistant about. A soft,
+natural mention of a FINA product is welcome roughly 1 in 3 posts, never
+a hard sell.
+
+## Format
+
+- **Length**: 600–900 words.
+- **Output**: clean semantic HTML only — `<h2>`, `<p>`, `<ul>`/`<li>`,
+  `<strong>`/`<em>` as needed. No `<html>`, `<head>`, or `<body>`
+  wrapper, no inline styles, no markdown syntax, no `<script>`.
+- **Structure**: a short opening paragraph naming the specific question
+  or trend the post addresses, 3–4 `<h2>` sections each leading with a
+  direct claim, a short closing paragraph.
+- **Title**: specific and concrete, not clickbait.
+- **Excerpt**: one sentence, written for a collection list preview.
+- **Slug**: short, kebab-case, derived from the title.
+
+## Files
+
+- `fina2/topics.txt` — ordered list of post ideas, one per line. Pick
+  the first topic without an existing draft.
+- `fina2/drafts` — generated posts as Markdown files with YAML
+  frontmatter and an HTML body (same frontmatter format as the root
+  `/drafts` pipeline: `title`, `slug`, `excerpt`, `topic`, `date`,
+  optional `image`).
+- `fina2/drafts/published` — drafts already pushed to Framer, moved here
+  so they're never re-published.
+- `fina2/scripts/framer-client.mjs` — shared Framer Server API
+  connection helper for the fina2.net project. Uses `FINA2_FRAMER_*` env
+  vars, kept independent of the root Maison Metekhi pipeline's vars.
+- `fina2/scripts/check-connection.mjs` — verifies the Framer connection,
+  lists the project's collections, and (once
+  `FINA2_FRAMER_COLLECTION_NAME` is set) prints that collection's real
+  field names and existing items.
+- `fina2/scripts/publish-post.mjs` — pushes the newest `fina2/drafts`
+  post into the blog collection as a **draft item** (`draft: true`,
+  never live), polling for up to 20s to confirm the item actually
+  persisted before moving the file to `fina2/drafts/published/`.
+
+## Framer connection — GitHub Actions only
+
+`framer-api` opens a WebSocket to `wss://api.framer.com`, which does not
+work from this Claude Code Remote session (the egress proxy doesn't
+support WebSocket upgrades). All Framer API calls for this pipeline run
+in GitHub Actions instead — see `.github/workflows/fina2-check-connection.yml`
+and `.github/workflows/fina2-publish-draft.yml`. Never attempt to run
+`fina2/scripts/*.mjs` directly from an interactive Claude Code Remote
+session; draft, commit, and push the `.md` file instead and let the
+publish workflow handle the Framer side.

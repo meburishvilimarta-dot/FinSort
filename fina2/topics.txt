@@ -1,0 +1,12 @@
+What SupTech actually means, and how it differs from RegTech and FinTech
+Why generative AI is moving into central bank supervision in 2026
+Real-time regulatory data validation: what it is and why offline submission tools still matter
+How central banks are using AI chatbots to handle first-line supervisory queries
+Building a single data collection hub: the case for an Integrated Regulatory Platform
+What role-based access control and audit logging should look like in a supervisory reporting system
+Cash management automation for commercial banks: reducing manual reconciliation
+Why regulatory reporting deadlines are getting shorter, and what that means for data pipelines
+AI-driven risk scoring in banking supervision: what regulators should ask vendors
+Digital transformation roadmaps for central banks: common first steps that actually work
+Knowledge management for regulators: keeping legislative and policy databases current
+Cybersecurity and multi-factor authentication requirements for regulator-facing platforms

@@ -1,0 +1,38 @@
+name: Publish fina2 blog draft
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "fina2/drafts/*.md"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - name: Publish newest fina2 draft to Framer
+        env:
+          FINA2_FRAMER_API_KEY: ${{ secrets.FINA2_FRAMER_API_KEY }}
+          FINA2_FRAMER_PROJECT_URL: ${{ secrets.FINA2_FRAMER_PROJECT_URL }}
+          FINA2_FRAMER_COLLECTION_NAME: ${{ secrets.FINA2_FRAMER_COLLECTION_NAME }}
+        run: npm run fina2:publish-post
+
+      - name: Commit draft state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add fina2/drafts
+          git diff --cached --quiet || git commit -m "Move published fina2 draft to fina2/drafts/published"
+          git push
