@@ -69,13 +69,19 @@ roughly 1 in 4 posts, never a hard sell.
 
 ## Format
 
-- **Length**: 600–900 words.
+- **Length**: 800–2000 words (raised from the earlier 600–900 target -
+  applies to every post, including the automated Monday runs). Longer
+  doesn't mean padded: only go toward the high end when the topic
+  genuinely supports that much substance (more named sources, more
+  distinct sub-points), not by restating the same claim in more words.
 - **Output**: clean semantic HTML only — `<h2>`, `<p>`, `<ul>`/`<li>`,
   `<strong>`/`<em>` as needed. No `<html>`, `<head>`, or `<body>`
   wrapper, no inline styles, no markdown syntax, no `<script>`.
 - **Structure**: a short opening paragraph naming the specific question
-  or trend the post addresses, 3–4 `<h2>` sections each leading with a
-  direct claim, a short closing paragraph.
+  or trend the post addresses, then `<h2>` sections each leading with a
+  direct claim - scale the section count to the length (roughly 4–5
+  sections for an 800–1200 word post, up to 6–8 for something closer to
+  2000), a short closing paragraph.
 - **Title**: specific and concrete, not clickbait.
 - **Excerpt**: one sentence, written for a collection list preview.
 - **Slug**: short, kebab-case, derived from the title.
