@@ -79,6 +79,14 @@ roughly 1 in 4 posts, never a hard sell.
 - **Title**: specific and concrete, not clickbait.
 - **Excerpt**: one sentence, written for a collection list preview.
 - **Slug**: short, kebab-case, derived from the title.
+- **References**: every post ends with an `<h2>References</h2>` section
+  followed by a `<ul>` of `<a href="...">Publisher — Article title</a>`
+  links to the real external sources used while researching (regulator
+  sites, named law firms/analyst articles, official implementation
+  timelines, etc.). Link to the actual URL surfaced by research, never a
+  guessed or memorized one. Use inline `<a href>` citations in the body
+  too, at the specific claim they support, not just in the reference
+  list at the end.
 
 ## Files
 
