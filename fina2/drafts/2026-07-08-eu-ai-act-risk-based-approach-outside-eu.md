@@ -4,7 +4,7 @@ slug: eu-ai-act-risk-based-approach-outside-eu
 excerpt: The EU AI Act's reach extends well past EU borders, and its 2026 timeline just changed in ways non-EU banks and regulators need to track even if they never open an EU branch.
 topic: What the EU AI Act's risk-based approach means for banks and regulators outside the EU
 date: 2026-07-08
-image: https://export-download.canva.com/pz76c/DAHO1Npz76c/-1/0/0001-5722332214022718316.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH5AO7UJ26%2F20260708%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260708T154654Z&X-Amz-Expires=23705&X-Amz-Signature=105fb8b539ef1a59f78c9531d6d6c93ce8706717a56d8f6b5c4aae6b262bee00&X-Amz-SignedHeaders=host%3Bx-amz-expected-bucket-owner&response-expires=Wed%2C%2008%20Jul%202026%2022%3A21%3A59%20GMT
+image: https://raw.githubusercontent.com/meburishvilimarta-dot/FinSort/main/fina2/drafts/images/eu-ai-act-risk-based-approach-outside-eu.png
 ---
 <p>The EU AI Act sorts AI systems into tiers by the risk they pose and attaches escalating obligations to each tier, from light-touch transparency rules up to strict pre-market conformity requirements for "high-risk" systems. Financial services has the highest concentration of explicitly named high-risk use cases of any sector the Act covers - credit scoring, SME lending, probability-of-default and loss-given-default models, and insurance underwriting are all named directly in Annex III (<a href="https://alicelabs.ai/en/insights/eu-ai-act-for-financial-services">Alice Labs</a>). That makes the Act's risk tiers a direct compliance question for banks and insurers, not a background policy debate - and its reach extends well past EU borders.</p>
 
