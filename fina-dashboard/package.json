@@ -1,0 +1,13 @@
+{
+  "name": "fina-marketing-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "FINA marketing intelligence dashboard — Node backend (Claude + Google Drive) with a static dark-theme front end, deployable to Vercel.",
+  "scripts": {
+    "dev": "node server.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0"
+  }
+}
