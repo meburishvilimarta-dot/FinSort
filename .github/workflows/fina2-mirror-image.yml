@@ -1,0 +1,46 @@
+name: Mirror fina2 header image into the repo
+
+# Canva export URLs are short-lived signed S3 links (a few hours). If a
+# draft's PR sits open waiting for review, the link can expire before
+# fina2-publish-draft.yml ever runs, and Framer's addItems() fails trying
+# to fetch a dead URL. This workflow downloads the image immediately
+# (while the link is still fresh) and commits it into the repo, so the
+# draft can reference a permanent raw.githubusercontent.com URL instead -
+# removing all time pressure from the PR review step.
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_url:
+        description: "Canva (or other) export URL to download"
+        required: true
+      filename:
+        description: "Target filename, e.g. some-slug.png"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download the image
+        run: |
+          mkdir -p fina2/drafts/images
+          curl -sSL --fail -o "fina2/drafts/images/${{ inputs.filename }}" "${{ inputs.image_url }}"
+          file "fina2/drafts/images/${{ inputs.filename }}"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "fina2/drafts/images/${{ inputs.filename }}"
+          git commit -m "Mirror fina2 header image: ${{ inputs.filename }}"
+          git push
+
+      - name: Print the permanent URL
+        run: |
+          echo "Permanent URL: https://raw.githubusercontent.com/${{ github.repository }}/main/fina2/drafts/images/${{ inputs.filename }}"

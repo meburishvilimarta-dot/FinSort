@@ -88,6 +88,26 @@ roughly 1 in 4 posts, never a hard sell.
   too, at the specific claim they support, not just in the reference
   list at the end.
 
+## Header images expire - mirror them immediately, don't link the Canva URL directly
+
+Canva `export-design` URLs are short-lived signed S3 links (a few hours
+at most). If a draft's PR sits open waiting for review, the link can
+expire before `fina2-publish-draft.yml` ever runs, and Framer's
+`addItems()` fails outright trying to fetch a dead URL (this has
+happened - a merge that landed ~9 hours after the PR was opened hit an
+already-expired link). **As soon as a header image is exported, dispatch
+`fina2-mirror-image.yml`** (`image_url` = the Canva export URL,
+`filename` = `<slug>.png`) to download it into
+`fina2/drafts/images/<slug>.png` and commit it to `main` immediately -
+this cannot be done from an interactive Claude Code Remote session
+directly (same WebSocket/egress restriction as Framer; Canva's export
+host is also blocked from this session, confirmed via a 403 from the
+proxy), which is why it has to go through this GitHub Actions step.
+Then use the resulting permanent
+`https://raw.githubusercontent.com/<owner>/<repo>/main/fina2/drafts/images/<slug>.png`
+URL as the draft's `image:` frontmatter value, not the original Canva
+link. This removes all time pressure from PR review.
+
 ## Files
 
 - `fina2/topics.txt` — ordered list of post ideas, one per line. Pick
